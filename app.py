@@ -14,8 +14,8 @@ app = Flask(__name__)
 #  CONFIG — replace with your actual API key
 #  Get a free key at: https://openweathermap.org/api
 # ─────────────────────────────────────────────
-API_KEY = "b0d6050d6dae4eed2716ae4b42b0c35d"
-BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
+API_KEY = 
+BASE_URL = 
 
 @app.route("/")
 def index():
