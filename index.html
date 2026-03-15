@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atmosfera — Weather</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <!-- Distinctive font pairing: Syne (display) + DM Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ░░ Animated background orbs ░░ -->
+  <div class="bg-scene" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="noise"></div>
+  </div>
+
+  <main class="app-shell">
+
+    <!-- ── Brand header ── -->
+    <header class="brand">
+      <span class="brand-icon">◈</span>
+      <span class="brand-name">Atmosfera</span>
+    </header>
+
+    <!-- ── Search card ── -->
+    <section class="search-card glass" role="search">
+      <p class="search-label">Enter a city or village</p>
+      <div class="search-row">
+        <input
+          id="cityInput"
+          class="search-input"
+          type="text"
+          placeholder="e.g. Tokyo, Lahore, Cape Town…"
+          autocomplete="off"
+          aria-label="City name"
+        />
+        <button id="searchBtn" class="search-btn" aria-label="Search">
+          <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── Loading spinner ── -->
+    <div id="loader" class="loader hidden" aria-live="polite" aria-label="Loading weather data">
+      <div class="spinner"></div>
+      <p>Fetching weather…</p>
+    </div>
+
+    <!-- ── Error banner ── -->
+    <div id="errorBanner" class="error-banner hidden" role="alert"></div>
+
+    <!-- ── Weather result ── -->
+    <section id="weatherCard" class="weather-card glass hidden" aria-live="polite">
+
+      <!-- Location + date -->
+      <div class="wc-header">
+        <div class="wc-location">
+          <svg class="icon-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+          <span id="wCity">—</span><span id="wCountry" class="country-badge">—</span>
+        </div>
+        <p id="wTime" class="wc-time">—</p>
+      </div>
+
+      <!-- Main temperature block -->
+      <div class="wc-main">
+        <div class="wc-icon-wrap">
+          <img id="wIcon" src="" alt="Weather icon" class="weather-icon" />
+          <div class="icon-glow"></div>
+        </div>
+        <div class="wc-temp-block">
+          <p id="wTemp" class="big-temp">—</p>
+          <p id="wDesc" class="wc-desc">—</p>
+          <p id="wFeels" class="wc-feels">—</p>
+        </div>
+      </div>
+
+      <!-- Hi / Lo strip -->
+      <div class="hilo-strip">
+        <div class="hilo-item">
+          <span class="hilo-arrow up">▲</span>
+          <span id="wMax">—</span>
+          <span class="hilo-label">High</span>
+        </div>
+        <div class="hilo-divider"></div>
+        <div class="hilo-item">
+          <span class="hilo-arrow down">▼</span>
+          <span id="wMin">—</span>
+          <span class="hilo-label">Low</span>
+        </div>
+      </div>
+
+      <!-- Stats grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">💧</div>
+          <p class="stat-value" id="wHumidity">—</p>
+          <p class="stat-label">Humidity</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💨</div>
+          <p class="stat-value" id="wWind">—</p>
+          <p class="stat-label">Wind</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">👁</div>
+          <p class="stat-value" id="wVis">—</p>
+          <p class="stat-label">Visibility</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🌡</div>
+          <p class="stat-value" id="wPressure">—</p>
+          <p class="stat-label">Pressure</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🌅</div>
+          <p class="stat-value" id="wSunrise">—</p>
+          <p class="stat-label">Sunrise</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🌇</div>
+          <p class="stat-value" id="wSunset">—</p>
+          <p class="stat-label">Sunset</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── Default hint ── -->
+    <div id="hintBlock" class="hint-block">
+      <div class="globe-icon">🌐</div>
+      <p>Search any city in the world<br>to see live weather conditions.</p>
+    </div>
+
+    <footer class="app-footer">Powered by OpenWeatherMap</footer>
+
+  </main>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
